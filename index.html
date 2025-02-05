@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>QuickCart!</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color:Light pastel blue; }
+        .product { 
+            border: 1px solid skyblue; padding: 10px; margin: 10px; 
+            display: inline-block; 
+            text-align: center; width: 200px; background-color:  White;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); border-radius: 8px;
+        }
+        .product img { width: 150px; height: 150px; object-fit: cover; border-radius: 5px; }
+        .cart { 
+            margin-top: 20px; border-top: 2px solid #000; padding-top: 10px; 
+            background-color: White; 
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QuickCart!!</h1>
+    <div id="products">
+        <div class="product">
+            <img src="buds.jpg" alt="EAR BUDS">
+            <h2>EAR BUDS</h2>
+            <p>Price: $1500</p>
+            <button onclick="addToCart('EAR BUDS', 1500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="dress.jpg" alt="GIRLS FROCK BLACK">
+            <h2>GIRLS FROCK BLACK</h2>
+            <p>Price: $2500</p>
+            <button onclick="addToCart('GIRLS FROCK BLACK', 2500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="phone.jpg" alt="IPHONE">
+            <h2>IPHONE</h2>
+            <p>Price: $19,000</p>
+            <button onclick="addToCart('IPHONE', 19000)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="watch.jpg" alt="MENS WATCH GOLD">
+            <h2>MENS WATCH GOLD</h2>
+            <p>Price: $5000</p>
+            <button onclick="addToCart('MENS WATCH GOLD', 5000)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="menshirt.jpg" alt="MENS SHIRT BLUE">
+            <h2>MENS SHIRT BLUE</h2>
+            <p>Price: $1000</p>
+            <button onclick="addToCart('MENS SHIRT BLUE', 1000)">Add to Cart</button>
+        </div>
+    </div>
+    <div class="cart">
+        <h2>Cart</h2>
+        <ul id="cart-items"></ul>
+        <p><strong>Total:</strong> $<span id="total">0</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+    <script>
+        let cart = [];
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+        function updateCart() {
+            let cartList = document.getElementById("cart-items");
+            let total = 0;
+            cartList.innerHTML = "";
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `<li>${item.name} - $${item.price} <button onclick="removeFromCart(${index})">Remove</button></li>`;
+            });
+            document.getElementById("total").innerText = total;
+        }
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            alert("Order placed successfully!");
+            cart = [];
+            updateCart();
+        }
+    </script>
+</body>
+</html>
